@@ -2,25 +2,31 @@
 <html>
   <head>
     <style>
-      .container{
-        border: 1px solid black;
+      .container {
+        border: 2px solid #ccc;
+        border-radius: 8px;
         padding: 20px;
-        display: inline-block;
+        background-color: #f9f9f9;
+        font-family: monospace;
+        width: fit-content;
+        box-shadow: 2px 2px 8px rgba(0,0,0,0.1);
+      }
+      pre {
+        margin: 0;
       }
     </style>
   </head>
   <body>
-    <p> Code example </p>
-    <pre>
-      <code>
-      var person: {
-      firstName:"Your first name",
-      lastName:"Your last name",
-      student:"Your studnet ID"
-      }
-    </code>
-      
-    </pre>
+    <div class="container">
+      <p><strong>Code example:</strong></p>
+      <pre><code>
+var person = {
+  firstName: "Yu ti",
+  lastName : "Chen",
+  studentId: "112108009"
+}
+      </code></pre>
+    </div>
   </body>
 </html>
 
