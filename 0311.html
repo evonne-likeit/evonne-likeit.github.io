@@ -7,22 +7,31 @@
       padding: 20px;
     }
 
+    .outer-box {
+    border: none;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.6); 
+    padding: 20px;
+    background-color: #fff; 
+}
+
     .h1-style {
       display: inline-block;
       font-size: 3em;
       margin: 0;
       border-top: 4px solid black;
-      text-shadow: 2px 2px 0px pink;
+      text-shadow: 6px 6px 0px pink;
     }
 
     .h2-style {
       font-style: italic;
       font-size: 2em;
       margin-top: 30px;
-      padding: 5px;
-      border: 1px solid black;
-      outline: 3px solid yellow;
+      padding: 0px;
+      border: 1.5px solid black;
+      outline-style: solid;
+      outline-color: yellow;
       width: 95%;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.6);
     }
 
     .h3-style {
@@ -32,16 +41,19 @@
     }
 
     .h3-style span {
-      border-bottom: 4px double black;
-      padding-bottom: 2px;
+      border-bottom: 4px solid black; 
+      padding-bottom: 0px;
+      font-weight: bold;
     }
   </style>
 </head>
 <body>
-  <h1 class="h1-style">This is heading 1</h1>
-  <h2 class="h2-style">This is heading 2</h2>
-  <div class="h3-style">
-    <span>This is heading 3</span>
+  <div class="outer-box">
+    <h1 class="h1-style">This is heading 1</h1>
+    <h2 class="h2-style">This is heading 2</h2>
+    <div class="h3-style">
+      <span>This is heading 3</span>
+    </div>
   </div>
 </body>
 </html>
