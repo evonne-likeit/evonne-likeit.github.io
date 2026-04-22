@@ -3,54 +3,182 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Button UI Test</title>
+    <title>UI Component with Toggle and Scroll</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap" rel="stylesheet">
     
     <style>
-        /* 網頁基本設定 (可選，只是為了讓按鈕置中好看) */
+        /* --- 基礎設定 --- */
         body {
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            background-color: #f5f5f5;
+            min-height: 100vh;
+            background-color: #e9ecef; /* 網頁背景，方便看清元件白底 */
+            margin: 0;
+            font-family: 'Roboto', "微軟正黑體", sans-serif;
         }
 
-        /* 按鈕的主要 CSS 樣式 - 完全依照設計稿規格 */
-        .spec-button {
-            /* 字體設定 (Font style) */
-            font-family: 'Roboto', sans-serif;
-            font-weight: 400; /* Regular */
+        /* --- 主容器 (寬度 496px) --- */
+        .widget-container {
+            width: 496px;
+            background-color: #ffffff;
+            border: 1px solid #dcdcdc; /* 加上外框讓範圍更清楚 */
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        /* --- 頂部標題列 (高度 35px) --- */
+        .header {
+            height: 35px;
+            display: flex;
+            justify-content: space-between; /* 讓文字和按鈕分居左右 */
+            align-items: center;
+            padding: 0 15px; /* 標題列左右內距 */
+            border-bottom: 1px solid #eaeaea; /* 分隔線 */
+            box-sizing: border-box;
+        }
+
+        .header-title {
             font-size: 13px;
-            color: #2f2f2f;
-            
-            /* 尺寸與圓角 (Size: h22 / R8) */
+            color: #707070;
+        }
+
+        /* --- 規格指定的按鈕 --- */
+        .spec-button {
             height: 22px;
             border-radius: 8px;
-            padding: 0 12px; /* 左右增加一點內距讓文字不要貼齊邊緣 */
-            
-            /* 背景與邊框 (Background / Outline) */
             background-color: #ffffff;
             border: 1px solid #2f2f2f;
-            
-            /* 排版設定：讓文字在按鈕內絕對置中 */
+            color: #2f2f2f;
+            font-family: 'Roboto', sans-serif;
+            font-size: 13px;
+            padding: 0 18px; /* 根據設計圖藍線標示左右 18px */
+            cursor: pointer;
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            
-            /* 滑鼠移過去顯示手指圖示 */
-            cursor: pointer;
+            outline: none;
+            transition: all 0.2s;
         }
         
-        /* 額外加分項：按鈕 hover 狀態 (雖然設計稿沒特別寫，但加了更像按鈕) */
         .spec-button:hover {
-            background-color: #f0f0f0;
+            background-color: #f5f5f5;
+        }
+
+        /* --- 內容區域 (包含圖片與展開資訊，設定可滑動) --- */
+        .scroll-area {
+            /* 設定一個固定高度，超過這個高度就會出現捲動軸 */
+            max-height: 300px; 
+            overflow-y: auto; /* 內容超出時垂直滑動 */
+            
+            /* 根據設計圖：左邊距 20px，右邊距 26px */
+            padding-left: 20px;
+            padding-right: 26px;
+            padding-top: 20px;
+            padding-bottom: 20px;
+            box-sizing: border-box;
+        }
+
+        /* --- 圖片預覽區 (450x240) --- */
+        .image-wrapper {
+            width: 450px;
+            height: 240px;
+            background-color: #ffdeb3; /* 模擬設計圖上的淺橘色佔位背景 */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .image-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* 讓圖片填滿且不變形 */
+        }
+
+        /* --- 展開資訊區 --- */
+        .info-section {
+            display: none; /* 預設隱藏 */
+            margin-top: 10px; /* 與上方圖片距離 10px */
+            margin-bottom: 10px; /* 底部保留 Min 10px */
+        }
+
+        /* 當加上 active class 時顯示 */
+        .info-section.active {
+            display: block; 
+        }
+
+        /* 每一行資訊的設定 */
+        .info-row {
+            font-size: 13px;
+            color: #707070;
+            margin-bottom: 6px; /* 行與行之間距離 6px */
+            line-height: 1.4;
+            word-break: break-all; /* 路徑太長時自動換行 */
+        }
+        
+        .info-row:last-child {
+            margin-bottom: 0;
+        }
+
+        /* --- 自訂捲動軸樣式 (盡量貼近設計圖) --- */
+        .scroll-area::-webkit-scrollbar {
+            width: 12px;
+        }
+        .scroll-area::-webkit-scrollbar-track {
+            background: #f1f1f1; 
+            border-left: 1px solid #e0e0e0;
+        }
+        .scroll-area::-webkit-scrollbar-thumb {
+            background: #c1c1c1; 
+            border-radius: 6px;
+            border: 2px solid #f1f1f1;
         }
     </style>
 </head>
 <body>
 
-    <button class="spec-button">查看資訊</button>
+    <div class="widget-container">
+        
+        <div class="header">
+            <span class="header-title">預覽</span>
+            <button id="infoToggleBtn" class="spec-button">查看資訊</button>
+        </div>
+
+        <div class="scroll-area">
+            
+            <div class="image-wrapper">
+                <img src="https://images.unsplash.com/photo-1494548162494-384bba4ab999?ixlib=rb-4.0.3&auto=format&fit=crop&w=450&q=80" alt="風景預覽圖">
+            </div>
+
+            <div id="fileInfoDetails" class="info-section">
+                <div class="info-row">修改日期：2017/10/12</div>
+                <div class="info-row">類別：JPG</div>
+                <div class="info-row">大小：466.97KB</div>
+                <div class="info-row">路徑：\\designcenter.qnap.com.tw\DesignCenter\PM、RD 請進入\WEB\Stations\A_Image2PDF\v2\sample</div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        // 取得按鈕與資訊區塊的 HTML 元素
+        const toggleBtn = document.getElementById('infoToggleBtn');
+        const infoDetails = document.getElementById('fileInfoDetails');
+
+        // 監聽按鈕的點擊事件
+        toggleBtn.addEventListener('click', function() {
+            
+            // 切換資訊區塊的 'active' class (有 active 就顯示，沒有就隱藏)
+            infoDetails.classList.toggle('active');
+            
+            // 判斷目前是開啟還是關閉狀態，動態修改按鈕上的文字
+            if (infoDetails.classList.contains('active')) {
+                toggleBtn.textContent = '收起資訊';
+            } else {
+                toggleBtn.textContent = '查看資訊';
+            }
+        });
+    </script>
 
 </body>
 </html>
