@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Button UI Test</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap" rel="stylesheet">
+    
+    <style>
+        /* 網頁基本設定 (可選，只是為了讓按鈕置中好看) */
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f5f5f5;
+        }
+
+        /* 按鈕的主要 CSS 樣式 - 完全依照設計稿規格 */
+        .spec-button {
+            /* 字體設定 (Font style) */
+            font-family: 'Roboto', sans-serif;
+            font-weight: 400; /* Regular */
+            font-size: 13px;
+            color: #2f2f2f;
+            
+            /* 尺寸與圓角 (Size: h22 / R8) */
+            height: 22px;
+            border-radius: 8px;
+            padding: 0 12px; /* 左右增加一點內距讓文字不要貼齊邊緣 */
+            
+            /* 背景與邊框 (Background / Outline) */
+            background-color: #ffffff;
+            border: 1px solid #2f2f2f;
+            
+            /* 排版設定：讓文字在按鈕內絕對置中 */
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            
+            /* 滑鼠移過去顯示手指圖示 */
+            cursor: pointer;
+        }
+        
+        /* 額外加分項：按鈕 hover 狀態 (雖然設計稿沒特別寫，但加了更像按鈕) */
+        .spec-button:hover {
+            background-color: #f0f0f0;
+        }
+    </style>
+</head>
+<body>
+
+    <button class="spec-button">查看資訊</button>
+
+</body>
+</html>
