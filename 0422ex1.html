@@ -17,7 +17,7 @@
             font-family: 'Roboto', sans-serif;
         }
 
-       
+        /* 主容器 496px */
         .widget-container {
             width: 496px;
             background-color: #ffffff;
@@ -25,6 +25,7 @@
             overflow: hidden;
         }
 
+        /* 頂部標題列 35px */
         .header {
             height: 35px;
             display: flex;
@@ -39,6 +40,7 @@
             color: #707070;
         }
 
+        /* 查看資訊按鈕 */
         .spec-button {
             height: 22px;
             border-radius: 8px;
@@ -51,29 +53,32 @@
             outline: none;
         }
 
+        /* 內容區間距：左 20px, 右 26px */
         .scroll-area {
             padding: 20px 26px 20px 20px;
             max-height: 400px;
             overflow-y: auto;
         }
 
+        /* --- 圖片區域：實現左右橘色、上下不留 --- */
         .image-wrapper {
             width: 450px;
             height: 240px;
-            background-color: #ffdeb3; 
+            background-color: #ffdeb3; /* 橘色底 */
             display: flex;
-            justify-content: center;   
-            align-items: flex-start;  
+            justify-content: center;   /* 讓圖片水平置中，露出左右橘色 */
+            align-items: flex-start;   /* 從頂部開始 */
             overflow: hidden;
             margin-bottom: 10px;
         }
 
         .image-wrapper img {
-            height: 100%;              
-            width: auto;               
+            height: 100%;              /* 高度 100% 填滿，確保上下不露出橘色 */
+            width: auto;               /* 寬度依比例縮放 */
             display: block;
         }
 
+        /* --- 資訊區域：每一行獨立綠底 --- */
         .info-section {
             display: none;
         }
@@ -83,11 +88,11 @@
         }
 
         .info-row {
-            background-color: #b5ffb5;
+            background-color: #b5ffb5; /* 綠色底 */
             color: #2f2f2f;
             font-size: 13px;
-            padding: 2px 8px;          
-            margin-bottom: 6px;       
+            padding: 2px 8px;          /* 文字內距 */
+            margin-bottom: 6px;        /* 行與行之間的白色間隙 */
             word-break: break-all;
         }
 
@@ -95,6 +100,7 @@
             margin-bottom: 0;
         }
 
+        /* 自訂捲動軸樣式 */
         .scroll-area::-webkit-scrollbar { width: 8px; }
         .scroll-area::-webkit-scrollbar-thumb { background: #ccc; border-radius: 4px; }
     </style>
