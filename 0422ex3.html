@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RWD Layout</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: #4db8e8;
+      padding: 20px;
+      font-family: sans-serif;
+    }
+
+    .container {
+      background-color: white;
+      border-radius: 8px;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .green {
+      background-color: #8bc34a;
+      height: 120px;
+      border-radius: 4px;
+    }
+
+    .teal-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .teal-item {
+      background-color: #00bcd4;
+      height: 48px;
+      border-radius: 4px;
+    }
+
+    .gray-group {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 6px;
+    }
+
+    .gray-item {
+      background-color: #d9d9d9;
+      height: 55px;
+      border-radius: 4px;
+    }
+
+
+    @media (min-width: 480px) {
+
+
+      .teal-group {
+        flex-direction: row;
+      }
+
+      .teal-item {
+        flex: 1;
+        height: 110px;
+      }
+
+
+      .gray-group {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+
+    <div class="green"></div>
+
+
+    <div class="teal-group">
+      <div class="teal-item"></div>
+      <div class="teal-item"></div>
+      <div class="teal-item"></div>
+    </div>
+
+
+    <div class="gray-group">
+      <div class="gray-item"></div>
+      <div class="gray-item"></div>
+      <div class="gray-item"></div>
+      <div class="gray-item"></div>
+    </div>
+
+  </div>
+</body>
+</html>
