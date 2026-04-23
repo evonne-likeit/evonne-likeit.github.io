@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>UI Spec Implementation</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap" rel="stylesheet">
-    
     <style>
         body {
             display: flex;
@@ -16,8 +15,6 @@
             margin: 0;
             font-family: 'Roboto', sans-serif;
         }
-
-
         .widget-container {
             width: 496px;
             background-color: #ffffff;
@@ -25,7 +22,7 @@
             overflow: hidden;
         }
 
-
+        /* ===== Header：維持原稿 ===== */
         .header {
             height: 35px;
             display: flex;
@@ -33,14 +30,14 @@
             align-items: center;
             padding: 0 15px;
             border-bottom: 1px solid #eaeaea;
+            background-color: #eeeeee;
         }
-
         .header-title {
             font-size: 13px;
             color: #707070;
         }
 
-
+        /* ===== 按鈕：維持原稿 ===== */
         .spec-button {
             height: 22px;
             border-radius: 8px;
@@ -53,76 +50,134 @@
             outline: none;
         }
 
- 
-        .scroll-area {
-            padding: 20px 26px 20px 20px;
-            max-height: 400px;
-            overflow-y: auto;
+        .widget-body {
+            display: flex;
+            height: 240px;
         }
 
+        .scroll-area {
+            flex: 1;
+            overflow-y: auto;
+            padding: 3px 26px 2px 20px; /* 維持你指定的數值 */
+            box-sizing: border-box;
+            scrollbar-width: none;
+        }
+        .scroll-area::-webkit-scrollbar {
+            display: none;
+        }
 
         .image-wrapper {
             width: 450px;
             height: 240px;
-            background-color: #ffdeb3; 
+            background-color: #ffdeb3;
             display: flex;
-            justify-content: center;   
-            align-items: flex-start;   
+            justify-content: center;
+            align-items: flex-start;
             overflow: hidden;
             margin-bottom: 10px;
         }
-
         .image-wrapper img {
-            height: 100%;             
-            width: auto;             
+            height: 100%;
+            width: auto;
             display: block;
         }
 
-     
         .info-section {
             display: none;
         }
-
         .info-section.active {
             display: block;
         }
-
         .info-row {
-            background-color: #b5ffb5; 
+            background-color: #b5ffb5;
             color: #2f2f2f;
             font-size: 13px;
-            padding: 2px 8px;          
-            margin-bottom: 6px;       
+            padding: 2px 8px;
+            margin-bottom: 6px;
             word-break: break-all;
         }
-
         .info-row:last-child {
             margin-bottom: 0;
         }
 
-       
-        .scroll-area::-webkit-scrollbar { width: 8px; }
-        .scroll-area::-webkit-scrollbar-thumb { background: #ccc; border-radius: 4px; }
+        /* ===== 滑桿軌道：新增 ::before 與 ::after 製作點點 ===== */
+        .custom-scrollbar-track {
+            width: 15px;
+            flex-shrink: 0;
+            background: #f9f9f9;
+            border-left: 1px solid #eaeaea;
+            position: relative;
+            cursor: pointer;
+            user-select: none;
+            display: none;
+        }
+
+        /* 上方的點點 (三角形) */
+        .custom-scrollbar-track::before {
+            content: "";
+            position: absolute;
+            top: 4px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 4px solid transparent;
+            border-right: 4px solid transparent;
+            border-bottom: 5px solid #666; /* 深灰色 */
+        }
+
+        /* 下方的點點 (三角形) */
+        .custom-scrollbar-track::after {
+            content: "";
+            position: absolute;
+            bottom: 4px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 4px solid transparent;
+            border-right: 4px solid transparent;
+            border-top: 5px solid #666; /* 深灰色 */
+        }
+
+        .custom-scrollbar-track.visible {
+            display: block;
+        }
+
+        .custom-scrollbar-thumb {
+            position: absolute;
+            left: 4px;
+            right: 4px;
+            background: #c0c0c0;
+            cursor: grab;
+            min-height: 24px;
+            z-index: 1; /* 確保滑塊在箭頭下方或平級，不遮擋功能 */
+        }
+        .custom-scrollbar-thumb:hover { background: #a8a8a8; }
+        .custom-scrollbar-thumb:active { cursor: grabbing; background: #a0a0a0; }
     </style>
 </head>
 <body>
-
     <div class="widget-container">
         <div class="header">
             <span class="header-title">預覽</span>
             <button id="infoToggleBtn" class="spec-button">查看資訊</button>
         </div>
-
-        <div class="scroll-area">
-            <div class="image-wrapper">
-                <img src="https://images.unsplash.com/photo-1494548162494-384bba4ab999?fit=crop&w=400&h=240&q=80" alt="Preview">
+        <div class="widget-body">
+            <div class="scroll-area" id="scrollArea">
+                <div class="image-wrapper">
+                    <img src="https://images.unsplash.com/photo-1494548162494-384bba4ab999?fit=crop&w=400&h=240&q=80" alt="Preview">
+                </div>
+                <div id="fileInfoDetails" class="info-section">
+                    <div class="info-row">修改日期：2017/10/12</div>
+                    <div class="info-row">類別：JPG</div>
+                    <div class="info-row">大小：466.97KB</div>
+                    <div class="info-row">路徑：\\designcenter.qnap.com.tw\DesignCenter\PM、RD 請進入\WEB\Stations\A_Image2PDF\v2\sample</div>
+                </div>
             </div>
 
-            <div id="fileInfoDetails" class="info-section">
-                <div class="info-row">修改日期：2017/10/12</div>
-                <div class="info-row">類別：JPG</div>
-                <div class="info-row">大小：466.97KB</div>
-                <div class="info-row">路徑：\\designcenter.qnap.com.tw\DesignCenter\PM、RD 請進入\WEB\Stations\A_Image2PDF\v2\sample</div>
+            <div class="custom-scrollbar-track" id="scrollTrack">
+                <div class="custom-scrollbar-thumb" id="scrollThumb"></div>
             </div>
         </div>
     </div>
@@ -130,12 +185,59 @@
     <script>
         const toggleBtn = document.getElementById('infoToggleBtn');
         const infoDetails = document.getElementById('fileInfoDetails');
+        const scrollArea = document.getElementById('scrollArea');
+        const track = document.getElementById('scrollTrack');
+        const thumb = document.getElementById('scrollThumb');
 
-        toggleBtn.addEventListener('click', function() {
+        function updateThumb() {
+            const ratio = scrollArea.clientHeight / scrollArea.scrollHeight;
+            const trackH = track.clientHeight;
+            const thumbH = Math.max(24, ratio * trackH);
+            const maxTop = trackH - thumbH;
+            const scrollRatio = scrollArea.scrollHeight > scrollArea.clientHeight
+                ? scrollArea.scrollTop / (scrollArea.scrollHeight - scrollArea.clientHeight) : 0;
+            thumb.style.height = thumbH + 'px';
+            thumb.style.top = (scrollRatio * maxTop) + 'px';
+        }
+
+        scrollArea.addEventListener('scroll', updateThumb);
+
+        let dragging = false, startY = 0, startTop = 0;
+        thumb.addEventListener('mousedown', e => {
+            dragging = true;
+            startY = e.clientY;
+            startTop = parseInt(thumb.style.top) || 0;
+            e.preventDefault();
+        });
+        document.addEventListener('mousemove', e => {
+            if (!dragging) return;
+            const trackH = track.clientHeight;
+            const thumbH = thumb.offsetHeight;
+            const maxTop = trackH - thumbH;
+            const newTop = Math.min(maxTop, Math.max(0, startTop + (e.clientY - startY)));
+            thumb.style.top = newTop + 'px';
+            scrollArea.scrollTop = (newTop / maxTop) * (scrollArea.scrollHeight - scrollArea.clientHeight);
+        });
+        document.addEventListener('mouseup', () => { dragging = false; });
+
+        track.addEventListener('click', e => {
+            if (e.target === thumb) return;
+            const rect = track.getBoundingClientRect();
+            const clickY = e.clientY - rect.top;
+            const thumbH = thumb.offsetHeight;
+            const maxTop = track.clientHeight - thumbH;
+            const newTop = Math.min(maxTop, Math.max(0, clickY - thumbH / 2));
+            thumb.style.top = newTop + 'px';
+            scrollArea.scrollTop = (newTop / maxTop) * (scrollArea.scrollHeight - scrollArea.clientHeight);
+        });
+
+        toggleBtn.addEventListener('click', function () {
             const isActive = infoDetails.classList.toggle('active');
             toggleBtn.textContent = isActive ? '收起資訊' : '查看資訊';
+            track.classList.toggle('visible', isActive);
+            scrollArea.scrollTop = 0;
+            setTimeout(updateThumb, 10);
         });
     </script>
-
 </body>
 </html>
