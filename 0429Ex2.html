@@ -5,38 +5,47 @@
 </head>
 <body>
 
-  <!-- 文字區域 -->
-  <p id="myText">Hello</p>
+  <!-- 外框 div -->
+  <div style="
+    font-family: 'Times New Roman', Times, serif;
+    border: 1px solid black;
+    width: 75px;
+    padding: 10px;
+    margin-top: 50px;
+    margin-left: 50px;
+  ">
+    <p id="myText">Hello</p>
 
-  <!-- 按鈕，綁定三個事件 -->
-  <button
-    onmouseover="mouseOver()"
-    onmouseout="mouseOut()"
-    onclick="mouseClick()"
-  >
-    Button
-  </button>
+    <button
+      onmouseover="mouseOver()"
+      onmouseout="mouseOut()"
+      onclick="mouseClick()"
+    >
+      Button
+    </button>
+  </div>
 
   <script>
-    // 取得文字元素
     var text = document.getElementById("myText");
+    var clicked = false;
 
-    // 滑鼠移到按鈕上 → 文字變粉紅色
     function mouseOver() {
       text.style.color = "hotpink";
     }
 
-    // 滑鼠離開按鈕 → 恢復黑色
     function mouseOut() {
-      text.style.color = "black";
-      text.innerText = "Hello";
+  if (!clicked) {       
+    text.style.color = "black";
+    text.innerText = "Hello";
+  }
+}
+
+    function mouseClick() {
+      clicked = true;
+    text.innerText = "Mouse Click";
+    text.style.color = "hotpink";
     }
 
-    // 點擊按鈕 → 文字改為 "Mouse Click"，顏色粉紅
-    function mouseClick() {
-      text.innerText = "Mouse Click";
-      text.style.color = "hotpink";
-    }
   </script>
 
 </body>
