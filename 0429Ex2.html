@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Button Interaction</title>
+</head>
+<body>
+
+  <!-- 文字區域 -->
+  <p id="myText">Hello</p>
+
+  <!-- 按鈕，綁定三個事件 -->
+  <button
+    onmouseover="mouseOver()"
+    onmouseout="mouseOut()"
+    onclick="mouseClick()"
+  >
+    Button
+  </button>
+
+  <script>
+    // 取得文字元素
+    var text = document.getElementById("myText");
+
+    // 滑鼠移到按鈕上 → 文字變粉紅色
+    function mouseOver() {
+      text.style.color = "hotpink";
+    }
+
+    // 滑鼠離開按鈕 → 恢復黑色
+    function mouseOut() {
+      text.style.color = "black";
+      text.innerText = "Hello";
+    }
+
+    // 點擊按鈕 → 文字改為 "Mouse Click"，顏色粉紅
+    function mouseClick() {
+      text.innerText = "Mouse Click";
+      text.style.color = "hotpink";
+    }
+  </script>
+
+</body>
+</html>
