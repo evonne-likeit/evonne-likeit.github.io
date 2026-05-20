@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; line-height: 1.6; }
+        pre { background-color: #f4f4f4; padding: 10px; border-radius: 5px; }
+        .section { margin-bottom: 20px; }
+    </style>
+</head>
+<body>
+
+    <div class="section">
+        <h3> Version 1 ：</h3>
+        <p id="properties-list"></p>
+    </div>
+
+    <div class="section">
+        <h3> Version 2：</h3>
+        <pre id="object-result"></pre>
+    </div>
+
+    <script>
+    
+        var Person = {
+            firstName: "Tony",
+            lastName: "Lee",
+            age: 50,
+            eyeColor: "Blue"
+        };
+
+        var allProperties = Object.keys(Person).join(", ");
+        document.getElementById("properties-list").innerText = allProperties;
+
+        delete Person.age;
+
+        var updatedObjectString = JSON.stringify(Person, null, 2);
+        document.getElementById("object-result").innerText = updatedObjectString;
+    </script>
+
+</body>
+</html>
